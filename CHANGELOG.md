@@ -1,6 +1,8 @@
 # Changelog
 
 ### master
+- move `capistrano-secrets-yml.rb` file to the proper dir (not sure why it is
+  required though)
 
 ### v1.0.0, 2014-10-07
 - added a check if `secrets.yml` is removed from git
