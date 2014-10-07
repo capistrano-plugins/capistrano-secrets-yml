@@ -24,7 +24,6 @@ And then:
 
         production:
           secret_key_base: d6ced...
-          foobar: some_other_secret
 
 - add to `Capfile`:
 
@@ -35,6 +34,18 @@ And then:
         $ bundle exec cap production setup
 
 You can now proceed with other deployment tasks.
+
+#### What if a new config is added to secrets file?
+
+- add it in local `config/secrets.yml`:
+
+        production:
+          secret_key_base: d6ced...
+          foobar: some_other_secret
+
+- and copy to the server:
+
+        $ bundle exec cap production setup
 
 ### How it works
 
