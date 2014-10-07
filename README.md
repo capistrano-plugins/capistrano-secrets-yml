@@ -64,6 +64,10 @@ On deployment:
 
 None.
 
+### More Capistrano automation?
+
+Check out [capistrano-plugins](https://github.com/capistrano-plugins) github org.
+
 ### FAQ
 
 - shouldn't we be keeping configuration in environment variables as per
