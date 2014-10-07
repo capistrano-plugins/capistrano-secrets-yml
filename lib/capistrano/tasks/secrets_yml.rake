@@ -1,8 +1,6 @@
 include Capistrano::SecretsYml::Paths
 include Capistrano::SecretsYml::Helpers
-
-namespace :load do
-  task :defaults do
+namespace :load do task :defaults do
     set :secrets_yml_local_path, "config/secrets.yml"
     set :secrets_yml_remote_path, "config/secrets.yml"
     set :secrets_yml_env, -> { fetch(:rails_env) || fetch(:stage) }
@@ -11,24 +9,29 @@ end
 
 namespace :secrets_yml do
 
-  desc "Check `secrets.yml` is not tracked git tracked"
+  task :check_secrets_file_exists do
+    next if File.exists?(secrets_yml_local_path)
+    check_secrets_file_exists_error
+    exit 1
+  end
+
+  task :check_git_tracking do
+    next unless system("git ls-files #{fetch(:secrets_yml_local_path)} --error-unmatch >/dev/null 2>&1")
+    check_git_tracking_error
+    exit 1
+  end
+
+  task :check_config_present do
+    next unless local_secrets_yml(secrets_yml_env).nil?
+    check_config_present_error
+    exit 1
+  end
+
+  desc "secrets.yml file checks"
   task :check do
-    output = nil
-    run_locally do
-      output = capture(:git, "ls-files", fetch(:secrets_yml_local_path))
-    unless output.empty?
-      puts
-      puts "Error - please remove '#{fetch(:secrets_yml_local_path)}' from git:"
-      puts
-      puts "    $ git rm --cached #{fetch(:secrets_yml_local_path)}"
-      puts
-      puts "and gitignore it:"
-      puts
-      puts "    $ echo '#{fetch(:secrets_yml_local_path)}' >> .gitignore"
-      puts
-      exit 1
-    end
-    end
+    invoke "secrets_yml:check_secrets_file_exists"
+    invoke "secrets_yml:check_git_tracking"
+    invoke "secrets_yml:check_config_present"
   end
 
   desc "Setup `secrets.yml` file on the server(s)"
