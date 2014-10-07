@@ -11,8 +11,28 @@ end
 
 namespace :secrets_yml do
 
+  desc "Check `secrets.yml` is not tracked git tracked"
+  task :check do
+    output = nil
+    run_locally do
+      output = capture(:git, "ls-files", fetch(:secrets_yml_local_path))
+    unless output.empty?
+      puts
+      puts "Error - please remove '#{fetch(:secrets_yml_local_path)}' from git:"
+      puts
+      puts "    $ git rm --cached #{fetch(:secrets_yml_local_path)}"
+      puts
+      puts "and gitignore it:"
+      puts
+      puts "    $ echo '#{fetch(:secrets_yml_local_path)}' >> .gitignore"
+      puts
+      exit 1
+    end
+    end
+  end
+
   desc "Setup `secrets.yml` file on the server(s)"
-  task :setup do
+  task setup: [:check] do
     content = secrets_yml_content
     on release_roles :all do
       execute :mkdir, "-pv", File.dirname(secrets_yml_remote_path)

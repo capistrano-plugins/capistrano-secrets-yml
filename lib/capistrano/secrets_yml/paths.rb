@@ -1,3 +1,5 @@
+require "pathname"
+
 module Capistrano
   module SecretsYml
     module Paths
