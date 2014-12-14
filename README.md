@@ -47,6 +47,8 @@ You can now proceed with other deployment tasks.
 
         $ bundle exec cap production setup
 
+- do not forget to notify your colleagues who also have deploy rights that the file has been changed so they update their copy, and do not forget to compare your own copy to the one you are going to overwrite just in case you missed an update.
+
 ### How it works
 
 When you execute `$ bundle exec production setup`:
