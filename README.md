@@ -37,15 +37,22 @@ You can now proceed with other deployment tasks.
 
 #### What if a new config is added to secrets file?
 
-- add it in local `config/secrets.yml`:
+- add it to local `config/secrets.yml`:
 
         production:
           secret_key_base: d6ced...
           foobar: some_other_secret
 
-- and copy to the server:
+- if you're working in a team where other people have the deploy rights, compare
+  you local `secrets.yml` with the one on the server. This is to ensure you
+  didn't miss an update.
+- copy to the server:
 
         $ bundle exec cap production setup
+
+- notify your colleagues that have the deploy rights that the remote
+  `secrets.yml` has been updated so they can change their copy.
+
 
 ### How it works
 
