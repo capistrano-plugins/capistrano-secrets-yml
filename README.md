@@ -7,8 +7,8 @@ Capistrano tasks for handling `secrets.yml` when deploying Rails 4+ apps.
 Add this to `Gemfile`:
 
     group :development do
-      gem 'capistrano', '~> 3.2.1'
-      gem 'capistrano-secrets-yml', '~> 1.0.0'
+      gem 'capistrano', '~> 3.10.0'
+      gem 'capistrano-secrets-yml', '~> 1.1.0'
     end
 
 And then:
