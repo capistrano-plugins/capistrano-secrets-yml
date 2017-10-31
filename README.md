@@ -17,19 +17,23 @@ And then:
 
 ### Setup and usage
 
-- make sure your local `config/secrets.yml` is not git tracked. It **should be on
+- Make sure your local `config/secrets.yml` is not git tracked. It **should be on
   the disk**, but gitignored.
 
-- populate production secrets in local `config/secrets.yml`:
+- Populate production secrets in local `config/secrets.yml`:
 
         production:
           secret_key_base: d6ced...
 
-- add to `Capfile`:
+- Add to `Capfile`:
 
         require 'capistrano/secrets_yml'
+        
+- Within your app/config/deploy/#{environment}.rb files, make sure to specify:
 
-- create `secrets.yml` file on the remote server by executing this task:
+        set :system_user, 'ssh_user' # defaults to root user; This user will SSH into the servers to generate all necessary files
+
+- Create `secrets.yml` file on the remote server by executing this task:
 
         $ bundle exec cap production setup
 

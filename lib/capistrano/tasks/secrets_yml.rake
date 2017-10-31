@@ -29,6 +29,7 @@ namespace :secrets_yml do
 
   desc "secrets.yml file checks"
   task :check do
+    raise(":deploy_to in your app/config/deploy/\#{environment}.rb file cannot contain ~") if shared_path.to_s.include?('~') # SCP doesn't support ~ in the path
     invoke "secrets_yml:check_secrets_file_exists"
     invoke "secrets_yml:check_git_tracking"
     invoke "secrets_yml:check_config_present"
@@ -39,7 +40,8 @@ namespace :secrets_yml do
     content = secrets_yml_content
     on release_roles :all do
       execute :mkdir, "-pv", File.dirname(secrets_yml_remote_path)
-      upload! StringIO.new(content), secrets_yml_remote_path
+      Net::SCP.upload!(self.host.hostname, fetch(:system_user), StringIO.new(content), secrets_yml_remote_path)
+      # upload! StringIO.new(content), secrets_yml_remote_path
     end
   end
 
