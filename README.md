@@ -29,10 +29,6 @@ And then:
 
         require 'capistrano/secrets_yml'
         
-- Within your app/config/deploy/#{environment}.rb files, make sure to specify:
-
-        set :system_user, 'ssh_user' # defaults to root user; This user will SSH into the servers to generate all necessary files
-
 - Create `secrets.yml` file on the remote server by executing this task:
 
         $ bundle exec cap production setup
@@ -62,7 +58,7 @@ You can now proceed with other deployment tasks.
 
 When you execute `$ bundle exec production setup`:
 
-- secrets from your local `secrets.yml` are copied to the server.<br/>
+- secrets from your local `secrets.yml` are copied to the servers in your config/deploy/{environment}.rb files using the user: value. a.<br/>
 - only "stage" secrets are copied: if you are deploying to `production`,
   only production secrets are copied there
 - on the server secrets file is located  in `#{shared_path}/config/secrets.yml`
