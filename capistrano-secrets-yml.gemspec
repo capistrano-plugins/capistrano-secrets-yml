@@ -24,8 +24,7 @@ Gem::Specification.new do |gem|
 
   gem.license       = 'MIT'
 
-  gem.add_dependency 'capistrano', '~> 3.10'
-  gem.add_dependency 'sshkit', '~> 1.15'
-
+  gem.add_dependency 'capistrano', '>= 3.10'
+  gem.add_dependency 'sshkit', '>= 1.17.0'
   gem.add_development_dependency 'rake', '~> 12.3'
 end
