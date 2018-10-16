@@ -40,7 +40,7 @@ namespace :secrets_yml do
     content = secrets_yml_content
     on release_roles :all do
       execute :mkdir, "-pv", File.dirname(secrets_yml_remote_path)
-      Net::SCP.upload!(self.host.hostname, self.host.user, StringIO.new(content), secrets_yml_remote_path)
+      Net::SCP.upload!(self.host.hostname, self.host.user, StringIO.new(content), secrets_yml_remote_path, ssh: { port: self.host.port })
     end
   end
 
