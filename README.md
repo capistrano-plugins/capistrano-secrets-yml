@@ -48,6 +48,12 @@ You can now proceed with other deployment tasks.
   didn't miss an update.
 - copy to the server:
 
+  if you only need to update secrets.yml
+
+        $ bundle exec cap production secrets_yml:setup
+
+  or if other Capistrano plugins need to be setup
+
         $ bundle exec cap production setup
 
 - notify your colleagues that have the deploy rights that the remote
