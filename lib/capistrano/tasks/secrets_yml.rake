@@ -10,7 +10,7 @@ end
 namespace :secrets_yml do
 
   task :check_secrets_file_exists do
-    next if File.exists?(secrets_yml_local_path)
+    next if File.exist?(secrets_yml_local_path)
     check_secrets_file_exists_error
     exit 1
   end
