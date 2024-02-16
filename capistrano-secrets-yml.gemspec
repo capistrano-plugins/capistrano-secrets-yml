@@ -26,5 +26,6 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency 'capistrano', '>= 3.10'
   gem.add_dependency 'sshkit', '>= 1.17.0'
+  gem.add_dependency 'net-scp', '>= 4.0.0'
   gem.add_development_dependency 'rake', '~> 12.3'
 end
