@@ -1,3 +1,5 @@
+require 'net/scp'
+
 include Capistrano::SecretsYml::Paths
 include Capistrano::SecretsYml::Helpers
 namespace :load do task :defaults do
